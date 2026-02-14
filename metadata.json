@@ -1,0 +1,7 @@
+{
+  "name": "Soundfree - The Infinite Soundscape",
+  "description": "A completely free, anonymous music sharing platform where original content is king and every artist gets a fair chance through a unique rotation algorithm.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
