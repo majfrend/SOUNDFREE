@@ -8,6 +8,7 @@ export interface User {
   reposts: string[]; // IDs of tracks
   playlists: Playlist[];
   savedPlaylists: string[]; // IDs of followed playlists
+  notifications: AppNotification[];
 }
 
 export interface Playlist {
@@ -29,6 +30,28 @@ export interface Track {
   likesCount: number;
   repostsCount: number;
   duration: number; // Seconds
+  fingerprint: string; // Audio fingerprint for duplicate detection
+}
+
+export interface CopyrightDispute {
+  id: string;
+  trackId: string;
+  claimant: string;
+  originalUploader: string;
+  status: 'pending' | 'resolved' | 'rejected';
+  proofUrl?: string;
+  timestamp: number;
+  newTrackData?: Partial<Track>; // Data for the new track if dispute is won
+}
+
+export interface AppNotification {
+  id: string;
+  recipient: string;
+  type: 'copyright_claim' | 'track_removed' | 'dispute_resolved' | 'system';
+  message: string;
+  data?: any;
+  read: boolean;
+  timestamp: number;
 }
 
 export interface AppState {
@@ -36,6 +59,7 @@ export interface AppState {
   tracks: Track[];
   registeredUsers: User[];
   playlists: Playlist[];
+  disputes: CopyrightDispute[];
   isPlaying: boolean;
   currentTrack: Track | null;
   activeQueue: string[]; // IDs delle tracce in riproduzione
